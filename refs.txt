@@ -1,0 +1,11 @@
+Nathan Hawes, Stuart Marshall, and Craig Anslow. CodeSurveyor: Mapping Large-Scale Software to Aid in Code Comprehension. In Proceedings of the IEEE Working Conference on Software Visualization (VISSOFT), Bremen, Germany, 2015.
+R. Deline, “Staying oriented with software terrain maps,” in Proceedings of the Workshop on Visual Languages and Computation, 2005.
+
+A. Kuhn, D. Erni, P. Loretan, and O. Nierstrasz, “Software cartography: thematic software visualization with consistent layout,” Journal of Software Maintenance and Evolution, vol. 22, no. 3, pp. 191–210, Apr. 2010. [Online]. Available: http://dx.doi.org/10.1002/smr.v22:3
+
+software visualization/history animation:
+
+Gource
+code_swarm https://effectivesoftwaredesign.com/2012/05/24/code-swarm-visualizing-the-evolution-of-software-systems/
+
+

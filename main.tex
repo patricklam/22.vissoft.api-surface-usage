@@ -1,0 +1,70 @@
+\documentclass[conference]{IEEEtran}
+\IEEEoverridecommandlockouts
+% The preceding line is only needed to identify funding in the first footnote. If that is unneeded, please comment it out.
+\usepackage{cite}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{algorithmic}
+\usepackage{graphicx}
+\usepackage{textcomp}
+\usepackage{xcolor}
+\def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
+    T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
+\begin{document}
+
+\title{VizAPI: Visualizing Interactions between Java Libraries and Clients
+\thanks{This work was partially supported by Canada's Natural Science and Engineering Research Council.}
+}
+
+\author{\IEEEauthorblockN{1\textsuperscript{st} Sruthi Venkatanarayanan}
+\IEEEauthorblockA{\textit{University of Waterloo} \\
+Waterloo, ON, CANADA \\
+s42venkat@uwaterloo.ca}
+\and
+\IEEEauthorblockN{2\textsuperscript{nd} Jens Dietrich
+\IEEEauthorblockA{\textit{Victoria University of Wellington}\\
+Wellington, NZ \\
+jens.dietrich@vuw.ac.nz}
+\and
+\IEEEauthorblockN{3\textsuperscript{rd} Craig Anslow}
+\IEEEauthorblockA{\textit{Victoria University of Wellington} \\
+Wellington, NZ\\
+craig.anslow@ecs.vuw.ac.nz}
+\and
+\IEEEauthorblockN{4\textsuperscript{th} Patrick Lam}
+\IEEEauthorblockA{\textit{University of Waterloo}\\
+Waterloo, ON, CANADA\\
+patrick.lam@uwaterloo.ca}
+}
+}
+
+\maketitle
+
+\begin{abstract}
+Software projects make use of libraries extensively. Libraries have intended API surfaces—sets of exposed library interfaces that library developers expect clients to use. However, in practice, clients only use small fractions of intended API surfaces of libraries. We have implemented the VizAPI tool, which shows a visualization overview that includes both static and dynamic interactions between clients, the libraries they use, and  those libraries’ transitive dependencies (all written in Java). We then present some usage scenarios of VizAPI. One application, by client developers, is to answer a query about upstream code: will their code be affected by breaking changes in library APIs? Additionally, library developers can use VizAPI to find out about downstream code: which APIs in their source code are commonly used by clients? 
+\end{abstract}
+
+\begin{IEEEkeywords}
+static program analysis,
+dynamic program analysis,
+API usage,
+software evolution,
+software maintenance
+\end{IEEEkeywords}
+
+\section{Introduction}
+\input{introduction}
+
+\section{Related Work}
+
+\section{Visualization System}
+
+\section{Evaluation}
+
+\section{Results}
+
+\section{Discussion}
+
+\section{Conclusion}
+
+
+\end{document}
