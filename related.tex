@@ -1,1 +1,71 @@
 \label{sec:related-work}
+A representative tool from the software visualization literature is
+CodeSurveyor, by Hawes et al~\cite{hawes15:_codes}. This tool visualizes large
+codebases using cartographic maps as an analogy.  While it
+incorporates dependency information into the layout of the map, VizAPI
+differs from CodeSurveyor as it focusses on usage relationships
+between different modules---primarily API invocations---using test
+cases to identify relationships between clients and libraries, rather
+than investigating an entire system, as CodeSurveyor does.  Earlier
+work in the same vein is the software cartography project by Kuhn et
+al~\cite{kuhn10:_softw} and by DeLine~\cite{deline05:_stayin}.
+
+% could mention
+%software visualization/history animation:
+
+%Gource
+%code_swarm https://effectivesoftwaredesign.com/2012/05/24/code-swarm-visualizing-the-evolution-of-software-systems/
+
+
+There is a large body of work investigating API usages, particularly
+in mining API specifications, as first introduced by Ammons et
+al~\cite{AmmonsETAL02MiningSpecifications}. Closer to the present work
+is that by Zhong and Mei~\cite{zhong19:_empir_study_api_usages}, who
+have investigated API usages in a dataset of 7 experimental subjects
+(clients) and the libraries that they depend on. Some of those
+findings are relevant to us: they find that clients use less than 10\%
+of the declared APIs in libraries. Saied et
+al~\cite{saied15:_minin_multi_api_usage_patter} studied which API
+calls tended to co-occur in client code and inferred co-usage
+relationships between these calls. Like them, we are specifically not
+investigating sequencing relationships between API calls.
+
+Hejderup and Gousios~\cite{DBLP:journals/jss/HejderupG22} explore a
+question which is central to our approach---how well do client tests
+exercise their dependencies' libraries? To some extent, we rely on
+client test suites exercising enough of the dependencies to get valid
+results from our analyses. Their conclusion is that a combination of
+static and dynamic analysis of the client has some chance of detecting
+breaking changes in its dependencies, and we accordingly use static
+analysis to supplement our dynamic results.
+
+Thummalapenta and Xie~\cite{thummalapenta08:_spotw} presented the
+related SpotWeb tool, which identifies framework hotspots (APIs that
+are often used) and coldspots (APIs that are never used); they do not
+consider framework APIs that are used but not intended to be. Hotspots
+and coldspots are, however, related to our investigations about client
+use of APIs; part of our study could be seen as investigating the
+prevalence of hotspots on our benchmark suite. Their notion of API
+usage is similar to ours, but they perform a static search to identify
+uses, while we primarily dynamically observe test executions. They
+also identify the top $N$ percent of used APIs as hotspots, and unused
+APIs as
+coldspots. Viljamaa~\cite{viljamaa03:_rever_engin_framew_reuse_inter}
+also aimed to find hotspots but used concept analysis to do so.
+
+Our overall goal is to help both client and library developers understand
+client uses of library code. Clients benefit from sharpened warnings
+about unsafe upgrades, knowledge that some upgrades are safe, and
+having reduced attack surfaces. Library upgrades have been
+investigated by many researchers, including Lam et
+al~\cite{lam20:_puttin_seman_seman_version} and Kura et al~\cite{kula18:_do_devel_updat_their_librar_depen}. Kura et al found that most
+software had outdated dependencies, and that software developers had
+negative feelings about being required to constantly upgrade their
+libraries. Being able to visualize dependencies may help developers
+prioritize required upgrades as low-effort or high-effort.
+Foo et al~\cite{foo18:_effic_static_check_librar_updat}
+proposed a static analysis which detected safe upgrades, but could
+only certify safety for 10\% of upgrades; our combined static and
+dynamic approach presents the developer with more information and
+enables more upgrades. 
+
