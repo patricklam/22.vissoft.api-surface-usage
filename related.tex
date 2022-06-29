@@ -16,23 +16,18 @@ al~\cite{kuhn10:_softw} and by DeLine~\cite{deline05:_stayin}.
 %Gource
 %code_swarm https://effectivesoftwaredesign.com/2012/05/24/code-swarm-visualizing-the-evolution-of-software-systems/
 
-
-There is a large body of work investigating API usages, particularly
-in mining API specifications, as first introduced by Ammons et
-al~\cite{AmmonsETAL02MiningSpecifications}. Closer to the present work
-is that by Zhong and Mei~\cite{zhong19:_empir_study_api_usages}, who
-have investigated API usages in a dataset of 7 experimental subjects
-(clients) and the libraries that they depend on. Some of those
-findings are relevant to us: they find that clients use less than 10\%
-of the declared APIs in libraries. Saied et
-al~\cite{saied15:_minin_multi_api_usage_patter} studied which API
-calls tended to co-occur in client code and inferred co-usage
-relationships between these calls. Like them, we are specifically not
-investigating sequencing relationships between API calls.
+%% There is a large body of work investigating API usages, particularly
+%% in mining API specifications, as first introduced by Ammons et
+%% al~\cite{AmmonsETAL02MiningSpecifications}. 
+%% Saied et
+%% al~\cite{saied15:_minin_multi_api_usage_patter} studied which API
+%% calls tended to co-occur in client code and inferred co-usage
+%% relationships between these calls. Like them, we are specifically not
+%% investigating sequencing relationships between API calls.
 
 Hejderup and Gousios~\cite{DBLP:journals/jss/HejderupG22} explore a
 question which is central to our approach---how well do client tests
-exercise their dependencies' libraries? To some extent, we rely on
+exercise their dependencies' libraries? That is, we rely on
 client test suites exercising enough of the dependencies to get valid
 results from our analyses. Their conclusion is that a combination of
 static and dynamic analysis of the client has some chance of detecting
