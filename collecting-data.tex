@@ -3,7 +3,22 @@ Our goal is to visualize interactions between different software components---be
 clients and libraries, and between libraries and other libraries. We now explain
 how we collect static and dynamic information about software behaviour.
 
-\paragraph{Static information} CHA using javassist. TODO.
+
+To identify interactions across the client/library boundaries,
+we first inspect JAR files of each software component to obtain a list of
+classes for every component. We then associate classes and their members to
+components based on these lists.
+
+\paragraph{Static information} We perform a static analysis to record
+API uses, namely class hierarchy analysis. 
+
+Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
+references which includes references at call sites, fields, annotations for 
+classes, methods and fields, method parameters and casts. 
+
+We then identify subtypes, also with the help of 
+Javassist~\cite{chiba00:_load_struc_reflec_java}, to determine possible 
+interactions across client/library boundaries and library/library boundaries.
 
 \paragraph{Dynamic information} We collect dynamic data by running client
 test suites under instrumentation. 
@@ -15,10 +30,6 @@ instrumentation and then the build system of each project (Maven or Gradle) to r
 tests. Figure~\ref{fig:workflow} summarizes our instrumentation and
 data capture workflow. We next describe our instrumentation implementation in detail.
 
-We identify interactions across the client/library boundaries by
-inspecting JAR files of each software component to obtain a list of
-classes for every component. We associate classes and their members to
-components based on these lists. \todo{is this still true?}
 
 \begin{figure*}[h]
  \begin{center}
