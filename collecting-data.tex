@@ -2,7 +2,8 @@
 Our goal is to visualize interactions between different software components---between
 clients and libraries, and between libraries and other libraries. We now explain
 how we collect static and dynamic information about software behaviour.
-Figure~\ref{fig:workflow} summarizes our data collection workflow.
+Figure~\ref{fig:workflow} summarizes our instrumentation and
+data capture workflow. 
 
 To identify interactions across the client/library boundaries,
 we first inspect JAR files of each software component to obtain a list of
@@ -16,20 +17,17 @@ Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
 references which includes references at call sites, fields, annotations for 
 classes, methods and fields, method parameters and casts. 
 
-We then identify subtypes, also with the help of 
-Javassist~\cite{chiba00:_load_struc_reflec_java}, to determine possible 
+We then identify subtypes, also using Javassist, to determine possible 
 interactions across client/library boundaries and library/library boundaries.
 
 \paragraph{Dynamic information} We collect dynamic data by running client
 test suites under instrumentation. 
 The instrumentation records API
 uses which cross client/library boundaries, as well as library/library boundaries
-for libraries that are transitively used. We use
-Javassist~\cite{chiba00:_load_struc_reflec_java} to perform the
-instrumentation and then the build system of each project (Maven or Gradle) to run its
-tests. Figure~\ref{fig:workflow} summarizes our instrumentation and
-data capture workflow. We next describe our instrumentation implementation in detail.
-
+for libraries that are transitively used. We also use
+Javassist to perform this
+instrumentation and then use the build system of each project (Maven or Gradle) to run its
+tests. 
 
 \begin{figure*}[h]
  \begin{center}
@@ -64,18 +62,17 @@ data capture workflow. We next describe our instrumentation implementation in de
     \draw[-Latex] (Py) to (viz);
   \end{tikzpicture}
 }
-  \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D2 visualizations.}
+  \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D3 visualizations.}
   \label{fig:workflow}
  \end{center}
 \end{figure*}
-
 
 At every invoke instruction in every
 loaded method which transfers control between the client and the
 library, we add code to record that invoke by incrementing a counter.
 We handle both static and virtual (including special, virtual,
 interface, and dynamic) calls. Crossing the client/library boundary
-includes callbacks from the library to the client as well as the conventional
+includes callbacks from the library to the client as well as conventional
 calls from the client to the library. 
 
 We also record field accesses (direct and reflective), dynamic proxies

@@ -3,12 +3,12 @@ A representative tool from the software visualization literature is
 CodeSurveyor, by Hawes et al~\cite{hawes15:_codes}. This tool visualizes large
 codebases using cartographic maps as an analogy.  While it
 incorporates dependency information into the layout of the map, VizAPI
-differs from CodeSurveyor as it focusses on usage relationships
+differs from CodeSurveyor in that VizAPI focusses on usage relationships
 between different modules---primarily API invocations---using test
-cases to identify relationships between clients and libraries, rather
-than investigating an entire system, as CodeSurveyor does.  Earlier
-work in the same vein is the software cartography project by Kuhn et
-al~\cite{kuhn10:_softw} and by DeLine~\cite{deline05:_stayin}.
+cases and static analysis to identify relationships between clients and libraries, rather
+than investigating a particular system, as CodeSurveyor does.  Earlier
+work in the same vein includes the software cartography project by Kuhn et
+al~\cite{kuhn10:_softw} and software terrain maps by DeLine~\cite{deline05:_stayin}.
 
 % could mention
 %software visualization/history animation:
@@ -42,7 +42,7 @@ and coldspots are, however, related to our investigations about client
 use of APIs; part of our study could be seen as investigating the
 prevalence of hotspots on our benchmark suite. Their notion of API
 usage is similar to ours, but they perform a static search to identify
-uses, while we primarily dynamically observe test executions. They
+uses, while we additionally dynamically observe test executions. They
 also identify the top $N$ percent of used APIs as hotspots, and unused
 APIs as
 coldspots. Viljamaa~\cite{viljamaa03:_rever_engin_framew_reuse_inter}
