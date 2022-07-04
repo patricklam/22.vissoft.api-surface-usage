@@ -4,9 +4,9 @@ Once we have generated data, we use a modified version
 of the d3graph\footnote{\url{https://pypi.org/project/d3graph/}} library in Python to generate a d3js\footnote{\url{https://d3js.org/}}
 visualization. 
 
-VizAPI graphs are force-directed graphs based on edge weights, which we assign
-according to the
-frequency of interactions between the source and target nodes.
+VizAPI graphs are force-directed graphs based on the
+frequency of interactions between different software components. The graph in Figure~\ref{fig:usagescenario1}
+is a graph produced by VizAPI.
 Each node is a set of one or more packages (or classes or methods) 
 that belong to the same JAR. We coalesce nodes if they originate from the same 
 JAR file and have the same incoming and outgoing edges. Each edge is directed 
