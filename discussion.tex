@@ -1,17 +1,25 @@
 \label{sec:discussion}
+We believe that using this visualization, library developers can make
+decisions about pruning or modifying unused APIs and refactor their
+libraries, while client developers can make decisions about library
+upgrades and breaking changes.
 
-We start our discussion with threats to validity. The first one is that 
-client tests may not adequately represent actual client behaviours.
-Secondly, we use class hierarchy analysis for our static analysis. 
-This might be unsound --- in our case, it means that we detect a higher number of 
-possible calls.
+% can we talk about the use of tests a bit more? how do we miss stuff?
 
-We believe that using this visualization, library developers can make decisions about 
-pruning or modifying unused APIs and refactor their libraries, while client developers can make 
-decisions about library upgrades and breaking changes.
+We discuss ways in which our visualization may not yield the
+information that developers are looking for. First, client tests may
+not adequately represent actual client behaviours; our use of both static
+and dynamic information helps mitigate this issue. However, because we use
+class hierarchy analysis for our static analysis, our visualization will present
+all possible static calls, even if the calls could be ruled out by a more
+precise call graph.
 
+This preliminary work has presented two usage scenarios which we
+believe promise to be useful for both client and library
+developers. Consistent with the Call for Papers for the NIER track for
+this work, we have not yet carried out a formal evaluation of our
+VizAPI tool. We intend to carry out further evaluation of our tool
+following the techniques described by Merino et al~\cite{merino}.
 
-CHA  - does it need to be cited?
-
-Cite a systematic literature review of software visualization evaluation (Merino et al)? Merino is PC chair and talk about how we don't have an evaluation yet but it's not required for NIER.
+%Cite a systematic literature review of software visualization evaluation (Merino et al)? Merino is PC chair and talk about how we don't have an evaluation yet but it's not required for NIER.
 
