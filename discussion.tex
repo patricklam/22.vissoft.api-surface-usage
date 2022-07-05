@@ -1,7 +1,7 @@
 \label{sec:discussion}
-We believe that using this visualization, library developers can make
-decisions about pruning or modifying unused APIs and refactor their
-libraries, while client developers can make decisions about library
+Our goal when developing VizAPI was to enable 1) library developers to make better
+decisions about pruning or modifying unused APIs and to refactor their
+libraries; and 2) client developers to make better decisions about library
 upgrades and breaking changes.
 
 % can we talk about the use of tests a bit more? how do we miss stuff?
@@ -14,12 +14,16 @@ class hierarchy analysis for our static analysis, our visualization will present
 all possible static calls, even if the calls could be ruled out by a more
 precise call graph.
 
-This preliminary work has presented two usage scenarios which we
+Nevertheless, This preliminary work has presented two usage scenarios which we
 believe promise to be useful for both client and library
-developers. Consistent with the Call for Papers for the NIER track for
-this work, we have not yet carried out a formal evaluation of our
-VizAPI tool. We intend to carry out further evaluation of our tool
-following the techniques described by Merino et al~\cite{merino}.
+developers. Consistent with the Call for Papers for the NIER track, we
+have not yet carried out a formal evaluation of our VizAPI tool. We
+intend to carry out further evaluation of our tool following the
+techniques described by Merino et
+al~\cite{merino18:_system_liter_review_softw_visual_evaluat}; in
+particular, we aspire to perform experiments to establish the
+effectiveness of VizAPI, where we ask users to perform software
+understanding and maintenance tasks that would benefit from our tool.
 
 %Cite a systematic literature review of software visualization evaluation (Merino et al)? Merino is PC chair and talk about how we don't have an evaluation yet but it's not required for NIER.
 
