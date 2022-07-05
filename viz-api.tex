@@ -1,8 +1,8 @@
 \label{sec:viz-api}
 
 We next describe the design of VizAPI, including details on how we
-collect information and format it to the d3js visualization
-library. We also describe two case studies showing potential uses of
+collect information and format it for the d3js visualization
+library. We also present two case studies showing potential uses of
 VizAPI.
 
 \begin{figure*}[h]
@@ -27,14 +27,13 @@ classes for every component. We then associate classes and their members to
 components based on these lists.
 
 \paragraph{Static information} We perform a static analysis to record
-API uses, namely class hierarchy analysis. 
-
-Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
-references which includes references at call sites, fields, annotations for 
+API uses. Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
+references, which includes references at call sites, fields, annotations for 
 classes, methods and fields, method parameters and casts. 
-
-We then identify subtypes, also using Javassist, to determine possible 
+We also identify subtypes, determining possible 
 interactions across client/library boundaries and library/library boundaries.
+Javassist uses
+a call graph produced by class hierarchy analysis to resolve method calls.
 
 \paragraph{Dynamic information} We collect dynamic data by running client
 test suites under instrumentation. 
@@ -81,6 +80,13 @@ tests.
   \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D3 visualizations.}
   \label{fig:workflow}
  \end{center}
+\end{figure*}
+\begin{figure*}[t]
+\begin{center}
+\includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
+\caption{Usage Scenario 2: dataprocessor (client)}
+\label{fig:usagescenario2}
+\end{center}
 \end{figure*}
 
 At every invoke instruction in every
@@ -130,7 +136,7 @@ in different categories such as logging and json parsing. We pick clients partly
 from popular Github repositories and partly from Duets~\cite{durieux21}.
 We collect both static and dynamic data for these projects.
 
-\subsubsection{Usage Scenario 1: jsoup}
+\paragraph{Usage Scenario 1: jsoup}
 Now, we walk through an example usage scenario of VizAPI.
 The graph in Figure~\ref{fig:usagescenario1} represents static and dynamic interactions of 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. Our clients are JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
 
@@ -138,14 +144,7 @@ We can start our exploration with the cluster of pink nodes. Many of these nodes
 
 Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. This could mean that breaking changes in these libraries can propagate to many of their own packages.
 
-\subsubsection{Usage Scenario 2: dataprocessor}
-\begin{figure*}[h]
-\begin{center}
-\includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
-\caption{Usage Scenario 1: dataprocessor (client)}
-\label{fig:usagescenario2}
-\end{center}
-\end{figure*}
+\paragraph{Usage Scenario 2: dataprocessor}
 
 Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library. Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange client node (identity of the package available from clicking on the orange node) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
 
