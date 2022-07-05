@@ -18,10 +18,10 @@ Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usag
 \subsubsection{Usage Scenario 2}
 \begin{figure*}[h]
 \begin{center}
-\includegraphics[scale=1,width=13cm,height=7cm]{images/usage-scenario2.png}
+\includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
 \caption{Usage Scenario 1: dataprocessor (client)}
 \label{fig:usagescenario2}
 \end{center}
 \end{figure*}
 
-The next usage scenario is in Figure~\ref{fig:usagescenario2}, which depicts a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. It uses the fastjson \footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}} library. It has calls only from its package \texttt{com.github.dataprocessor.slice}, which is the orange client node, to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson, which means if there is a fastjson version upgrade in dataprocessor, the developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. Another interesting thing to note are the disconnected nodes in Figure~\ref{fig:usagescenario2}. These are all packages of fastjson, that are unused by dataprocessor, which means that any breaking changes in these packages are not likely to affect dataprocessor.
+The next usage scenario is in Figure~\ref{fig:usagescenario2}, which depicts a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. It uses the fastjson \footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}} library. It has calls only from its package \texttt{com.github.dataprocessor.slice}, which is the purple client node, to the package \texttt{com.alibaba.fastjson}, which is the green node. No other parts of dataprocessor use fastjson, which means if there is a fastjson version upgrade in dataprocessor, the developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. Another interesting thing to note are the disconnected nodes in Figure~\ref{fig:usagescenario2}. These are all packages of fastjson, that are unused by dataprocessor, which means that any breaking changes in these packages are not likely to affect dataprocessor.

@@ -9,7 +9,16 @@ Let's consider one other issue: breaking changes. \textit{Potentially} breaking 
 
 In all programming environments that we are familiar with, a client developer's decision to use a particular API (e.g. library method {\tt m()}) is a local decision, taken by the developer as they build their system. To our knowledge, there are no existing systems that help developers visualize which APIs are used throughout an entire project. We claim that such a visualization has potential applications for both client and library developers.
 
-We now discuss a possible VizAPI usage scenario, from the perspective of a client developer. First, consider a client $C$ and a library $L$, in the context of plain Java. Library $L$ has packages $L_1$, $L_2$, and $L_3$. $C$ calls into $L_1$ and $L_2$. Internally, within $L$, $L_1$ and $L_2$ call into each other, but not into $L_3$. The VizAPI result, with no edges from $C$ directly to $L_3$, allows a developer to conclude that breaking changes in $L_3$ will not affect $C$. Also, if only $L_3$ uses an external dependency $D$, then we know that $C$ will not need $D$ to be on its classpath.
+\begin{figure*}[h]
+\begin{center}
+\includegraphics[scale=1,width=9cm,height=6cm]{images/intro-example.png}
+\caption{An Example VizAPI Application}
+\label{fig:example}
+\end{center}
+\end{figure*}
+
+
+We now discuss a possible VizAPI usage scenario as seen in Figure~\ref{fig:example}, from the perspective of a client developer. First, consider a client $C$ (blue nodes) and a library $L$ (purple nodes), in the context of plain Java. Library $L$ has packages $L_1$, $L_2$, and $L_3$. $C$ calls into $L_1$ and $L_2$. Internally, within $L$, $L_1$ and $L_2$ call into each other, but not into $L_3$. The VizAPI result, with no edges from $C$ directly to $L_3$, allows a developer to conclude that breaking changes in $L_3$ will not affect $C$. Also, if only $L_3$ uses an external dependency $D$ (yellow node), then we know that $C$ will not need $D$ to be on its classpath.
 
 From the library developer side, under plain Java (i.e. no runtime containers) and considering reflection, the effective API surface of any component is huge. Essentially: every method can be called, and every field can be read and written. Even considering only the published API surface (methods, fields, classes, and annotations with the correct visibility modifiers), libraries' API surfaces still often have hundreds to thousands of members. The breadth of the API surface is a liability with respect to continued maintenance of the library; many developers aspire to avoid breaking changes by preserving, whenever possible, library behaviour that is depended on by clients. Knowing that few clients use a particular API would be valuable.
 
@@ -31,6 +40,7 @@ Our contributions include:
 \item an implementation of the VizAPI tool, which presents a visualization of API usage information; VizAPI collects static information and instruments Java code and collect dynamic instrumentation information about API uses in practice and presents it as a d3 visualization (Section~\ref{sec:collecting-data}--\ref{sec:vis-system});
 \item a discussion of VizAPI usage scenarios (Section~\ref{sec:evaluation}) based on a collection of 11 libraries and 38 clients.
 \end{itemize}
+
 
 %VizAPI usage scenarios, which we discuss in Section~\ref{sec:discussion}, include guidance to API designers, based on the fact that API usages are sparse, as well as suggestions for tool designers.
 
