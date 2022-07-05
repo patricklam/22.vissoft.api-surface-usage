@@ -2,4 +2,6 @@
 *.log
 *~
 main.pdf
-
+*.bbl
+*.blg
+*.out
