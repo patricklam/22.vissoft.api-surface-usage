@@ -134,12 +134,19 @@ formatted as “jar : $<$space separated list of packages$>$”.
 \subsection{Case Study}
 \label{subsec:evaluation}
 
-We conducted a pilot study of VizAPI on an 85-project subset of the
-Duets benchmarks~\cite{durieux21}. Our study included 10 libraries and
-their clients. For libraries, we pick the most popular Maven repositories 
-in different categories such as logging and json parsing. We pick clients partly
-from popular Github repositories and partly from Duets~\cite{durieux21}.
-We collect both static and dynamic data for these projects.
+We conducted a pilot study of VizAPI.
+We have generated data from libraries from a subset of the
+Duets benchmarks~\cite{durieux21} combined with a selection of
+popular Maven repositories 
+in different categories such as logging and json parsing.
+Our study included 10 libraries and
+selected clients of these libraries (potentially overlapping), for a total of 85 projects.
+We chose clients partly
+from popular Github repositories and partly from Duets.
+We have collected both static and dynamic data for these projects.
+We present two usage scenarios below, and we are in a position
+to generate graphs for combinations of clients and libraries
+in these projects.
 
 \paragraph{Usage Scenario 1: jsoup}
 Now, we walk through an example usage scenario of VizAPI.
