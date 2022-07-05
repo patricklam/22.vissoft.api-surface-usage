@@ -102,8 +102,7 @@ keywords = {mining, patterns, Maven Central, Stack Overflow, unsafe, Java}
                Tao Xie},
   title     = {{SpotWeb}: Detecting Framework Hotspots and Coldspots via Mining Open
                Source Code on the Web},
-  booktitle = {23rd {IEEE/ACM} International Conference on Automated Software Engineering
-               {(ASE} 2008), 15-19 September 2008, L'Aquila, Italy},
+  booktitle = {ASE 2008},
   pages     = {327--336},
   publisher = {{IEEE} Computer Society},
   year      = 2008,
@@ -156,12 +155,11 @@ publisher = {Association for Computing Machinery},
 address = {New York, NY, USA},
 url = {https://doi.org/10.1145/940071.940101},
 doi = {10.1145/940071.940101},
-booktitle = {Proceedings of the 9th European Software Engineering Conference Held Jointly with 11th ACM SIGSOFT International Symposium on Foundations of Software Engineering},
+booktitle = {FSE},
 pages = {217–226},
 numpages = 10,
 keywords = {reuse, reverse engineering, framework, pattern, documentation, formal concept analysis},
 location = {Helsinki, Finland},
-series = {ESEC/FSE-11}
 }
 
 @INPROCEEDINGS{yasmin20:_first_look_deprec_restf_apis,
@@ -307,7 +305,7 @@ series = {MSR '18}
 @inproceedings{abdalkareem2017developers,
 	title={Why do developers use trivial packages? an empirical case study on npm},
 	author={Abdalkareem, Rabe and Nourry, Olivier and Wehaibi, Sultan and Mujahid, Suhaib and Shihab, Emad},
-	booktitle={Proceedings of the 2017 11th Joint Meeting on Foundations of Software Engineering},
+	booktitle={FSE},
 	pages={385--395},
 	year={2017}
 }
@@ -480,12 +478,11 @@ address = {New York, NY, USA},
 url = {https://doi.org/10.1145/3236024.3275535},
 doi = {10.1145/3236024.3275535},
 abstract = {Software engineering practices have evolved to the point where a developer writing a new application today doesn’t start from scratch, but reuses a number of open source libraries and components. These third-party libraries evolve independently of the applications in which they are used, and may not maintain stable interfaces as bugs and vulnerabilities in them are fixed. This in turn causes API incompatibilities in downstream applications which must be manually resolved. Oversight here may manifest in many ways, from test failures to crashes at runtime. To address this problem, we present a static analysis for automatically and efficiently checking if a library upgrade introduces an API incompatibility. Our analysis does not rely on reported version information from library developers, and instead computes the actual differences between methods in libraries across different versions. The analysis is scalable, enabling real-time diff queries involving arbitrary pairs of library versions. It supports a vulnerability remediation product which suggests library upgrades automatically and is lightweight enough to be part of a continuous integration/delivery (CI/CD) pipeline. To evaluate the effectiveness of our approach, we determine semantic versioning adherence of a corpus of open source libraries taken from Maven Central, PyPI, and RubyGems. We find that on average, 26% of library versions are in violation of semantic versioning. We also analyze a collection of popular open source projects from GitHub to determine if we can automatically update libraries in them without causing API incompatibilities. Our results indicate that we can suggest upgrades automatically for 10% of the libraries.},
-booktitle = {Proceedings of the 2018 26th ACM Joint Meeting on European Software Engineering Conference and Symposium on the Foundations of Software Engineering},
+booktitle = {FSE},
 pages = {791–796},
 numpages = 6,
 keywords = {api diffs, automated remediation, call graphs, library upgrades, semantic versioning},
 location = {Lake Buena Vista, FL, USA},
-series = {ESEC/FSE 2018}
 }
 
 @inproceedings{bruce20:_jshrin,
@@ -611,4 +608,25 @@ numpages = {8}
   title =        {A Systematic Literature Review of Software Visualization Evaluation},
   journal =      {Journal of Systems and Software},
   year =         2018}
+
+@article{livshits15:_in_defen_sound,
+author = {Livshits, Benjamin and Sridharan, Manu and Smaragdakis, Yannis and Lhot\'{a}k, Ond\v{r}ej and Amaral, J. Nelson and Chang, Bor-Yuh Evan and Guyer, Samuel Z. and Khedker, Uday P. and M\o{}ller, Anders and Vardoulakis, Dimitrios},
+title = {In Defense of Soundiness: A Manifesto},
+year = 2015,
+issue_date = {February 2015},
+publisher = {Association for Computing Machinery},
+address = {New York, NY, USA},
+volume = 58,
+number = 2,
+issn = {0001-0782},
+url = {https://doi.org/10.1145/2644805},
+doi = {10.1145/2644805},
+abstract = {Soundy is the new sound.},
+journal = {Commun. ACM},
+month = {jan},
+pages = {44–46},
+numpages = 3
+}
+
+  
 
