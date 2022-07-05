@@ -27,14 +27,13 @@ classes for every component. We then associate classes and their members to
 components based on these lists.
 
 \paragraph{Static information} We perform a static analysis to record
-API uses, namely class hierarchy analysis. 
-
-Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
-references which includes references at call sites, fields, annotations for 
+API uses. Using Javassist~\cite{chiba00:_load_struc_reflec_java}, we identify type
+references, which includes references at call sites, fields, annotations for 
 classes, methods and fields, method parameters and casts. 
-
-We then identify subtypes, also using Javassist, to determine possible 
+We also identify subtypes, determining possible 
 interactions across client/library boundaries and library/library boundaries.
+Javassist uses
+a call graph produced by class hierarchy analysis to resolve method calls.
 
 \paragraph{Dynamic information} We collect dynamic data by running client
 test suites under instrumentation. 
