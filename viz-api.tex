@@ -8,7 +8,7 @@ VizAPI.
 \begin{figure*}[h]
 \begin{center}
 \includegraphics[scale=1,width=15cm,height=8cm]{images/usage-scenario1.png}
-\caption{Usage Scenario 1: jsoup (library), JsoupXpath (client), ez-vcard (client)}
+\caption{Usage Scenario 1: Usage of the library, $jsoup$ by two clients, $ez-vcard$  and $JsoupXpath$}
 \label{fig:usagescenario1}
 \end{center}
 \end{figure*}
@@ -84,7 +84,7 @@ tests.
 \begin{figure*}[t]
 \begin{center}
 \includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
-\caption{Usage Scenario 2: dataprocessor (client)}
+\caption{Usage Scenario 2: Interaction of the client, $dataprocessor$ with the library, $fastjson$}
 \label{fig:usagescenario2}
 \end{center}
 \end{figure*}
@@ -117,19 +117,21 @@ as dependencies.
 
 The graph in Figure~\ref{fig:usagescenario1}
 is an example of a graph produced by VizAPI.
-Each node is a set of one or more packages (or classes or methods) 
-that belong to the same JAR. 
+Each node is a set of one or more packages that belong to the same JAR. 
 Clients are represented by nodes with white interiors; libraries by nodes with filled interiors and black borders;
 and dependencies by nodes with filled interiors and normal borders.
 We coalesce nodes if they originate from the same 
 JAR file and have the same incoming and outgoing edges. Each edge is directed 
 from the source package(s) to the target package(s) and represents an interaction 
-(invocations, fields, annotations, subtyping) between packages. We run a 
-clustering algorithm and use its output to colour nodes based on the cluster 
-that they belong to, so a colour could include nodes from the same or different JARs.
+(invocations, fields, annotations, subtyping) between packages. 
+The thickness of each edge is based on the frequency of interactions between the source and the target.
+We run the Louvain clustering algorithm~\cite{blondel2008fast} using Python. 
+We colour nodes based on the cluster that they belong to. 
+This means that a colour could include nodes from the same or different JARs.
 Hovering on a node shows the list of packages and 
 the JAR that they belong to, 
-formatted as “jar : $<$space separated list of packages$>$”.
+formatted as “jar : $<$space separated list of packages$>$”. 
+Double-clicking on a node focusses on its direct interactions with other packages while fading out the rest of the graph.
 
 \subsection{Case Study}
 \label{subsec:evaluation}
@@ -141,10 +143,7 @@ popular Maven repositories
 in different categories such as logging and json parsing.
 Our study included 10 libraries and
 selected clients of these libraries (potentially overlapping), for a total of 85 projects.
-We have made our data publicly available at
-\begin{center}
-\url{https://www.dropbox.com/s/puopekyt9nbm8ip/apis-data.zip?dl=0}
-\end{center}
+We have made our data publicly available.\footnote{\url{https://www.dropbox.com/s/puopekyt9nbm8ip/apis-data.zip?dl=0}}
 
 We chose clients partly
 from popular Github repositories and partly from Duets.
@@ -153,21 +152,19 @@ and we are in a position
 to generate graphs for combinations of clients and libraries
 in these projects. 
 We present two usage scenarios below; graphs for 
-our usage scenarios can be found at:
-\begin{center}
-\url{https://sruthivenkat.github.io/VizAPI-graph/}
-\end{center}
+our usage scenarios are publicly available.\footnote{\url{https://sruthivenkat.github.io/VizAPI-graph/}}
+We intend for these usage scenarios to show how VizAPI can be useful to client developers when they want to observe library API usage and for library developers when they want to observe how their library is used by clients.
 
 \paragraph{Usage Scenario 1: jsoup}
 Now, we walk through an example usage scenario of VizAPI.
-The graph in Figure~\ref{fig:usagescenario1} represents static and dynamic interactions of 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. Our clients are JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
+The graph in Figure~\ref{fig:usagescenario1} represents static and dynamic interactions of 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. The clients are JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
 
-We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. When we hover over them, the hover hints tell us that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
+We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. When we hover over them, the hover hints tell us the package names while double-clicking shows us direct interactions. We see that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
 
 Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. This could mean that breaking changes in these libraries can propagate to many of their own packages.
 
 \paragraph{Usage Scenario 2: dataprocessor}
 
-Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library. Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange client node (identity of the package available from clicking on the orange node) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
+Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library. Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange client node (identity of the package available from hovering on the orange node) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
 
 Note also the disconnected nodes in Figure~\ref{fig:usagescenario2}. These are all packages of fastjson that are unused by dataprocessor: any breaking changes in these packages definitely do not directly affect dataprocessor, and are less likely to affect it overall than packages that are directly used.
