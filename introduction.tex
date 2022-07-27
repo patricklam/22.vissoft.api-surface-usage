@@ -32,13 +32,14 @@ declared APIs in libraries. Our visualization allows developers and
 researchers to visualize distribution information about how different
 parts of clients use different parts of libraries.
 
-This paper presents the VizAPI tool, which shows visualization overviews showing API usages---from clients to libraries, but also between libraries (including transitive dependencies). VizAPI incorporates information from static and dynamic analyses.
-We have made VizAPI publicly available\footnote{\url{https://github.com/SruthiVenkat/api-visualization-tool}}, although it is still in development.
+This paper presents the VizAPI tool, which shows visualization overviews showing API usages---from clients to libraries, but also between libraries (including transitive dependencies). VizAPI incorporates information from static and dynamic analyses.  We have made VizAPI publicly available\footnote{\url{https://github.com/SruthiVenkat/api-visualization-tool}}, although it is still in development. The contributions of this paper include:
 
-Our contributions include:
+% CRAIG emphaised the contributions here
+
 \begin{itemize}
-\item an implementation of the VizAPI tool, which presents a visualization of API usage information; VizAPI collects static information and instruments Java code and collects dynamic instrumentation information about API uses in practice and presents it as a d3 visualization (Section~\ref{subsec:collecting-data}--\ref{subsec:vis-system});
-\item a discussion of VizAPI usage scenarios (Section~\ref{subsec:evaluation}) based on a collection of 11 libraries and 38 clients.
+
+\item \emph{VizAPI}, a tool which presents visualization of API usage information; VizAPI collects static information and instruments Java code and collect dynamic instrumentation information about API uses in practice and presents it as a d3 visualization (Section~\ref{subsec:collecting-data}--\ref{subsec:vis-system});
+\item \emph{Case Study}, a discussion of VizAPI usage scenarios (Section~\ref{subsec:evaluation}) based on a collection of 11 libraries and 38 clients.
 \end{itemize}
 
 

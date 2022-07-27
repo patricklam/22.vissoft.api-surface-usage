@@ -28,9 +28,7 @@
 
 \begin{document}
 
-\title{VizAPI: Visualizing Interactions between Java Libraries and Clients
-\thanks{This work was partially supported by Canada's Natural Science and Engineering Research Council.}
-}
+\title{VizAPI: Visualizing Interactions between Java Libraries and Clients}
 
 %\author{\IEEEauthorblockN{1\textsuperscript{st} Sruthi Venkatanarayanan}
 %\IEEEauthorblockA{\textit{University of Waterloo} \\
@@ -55,6 +53,8 @@
 %}
 
 
+% CRAIG changed the order of the authors
+
 \author{\IEEEauthorblockN{Sruthi Venkatanarayanan, Patrick Lam}
 \IEEEauthorblockA{University of Waterloo \\
 Waterloo, ON, Canada \\
@@ -70,7 +70,7 @@ Wellington, New Zealand \\
 \maketitle
 
 \begin{abstract}
-Software projects make use of libraries extensively. Libraries make available intended API surfaces—sets of exposed library interfaces that library developers expect clients to use. However, in practice, clients only use small fractions of intended API surfaces of libraries. We have implemented the VizAPI tool, which shows a visualization that includes both static and dynamic interactions between clients, the libraries they use, and  those libraries’ transitive dependencies (all written in Java). We then present some usage scenarios of VizAPI. One application, by client developers, is to answer a query about upstream code: will their code be affected by breaking changes in library APIs? Additionally, library developers can use VizAPI to find out about downstream code: which APIs in their source code are commonly used by clients? 
+Software projects make use of libraries extensively. Libraries make available intended API surfaces -- sets of exposed library interfaces that library developers expect clients to use. However, in practice, clients only use small fractions of intended API surfaces of libraries. We have implemented the VizAPI tool, which shows a visualization that includes both static and dynamic interactions between clients, the libraries they use, and  those libraries’ transitive dependencies (all written in Java). We then present some usage scenarios of VizAPI. One application, by client developers, is to answer a query about upstream code: will their code be affected by breaking changes in library APIs? Additionally, library developers can use VizAPI to find out about downstream code: which APIs in their source code are commonly used by clients? 
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -92,6 +92,10 @@ software maintenance
 
 \section{Discussion}
 \input{discussion}
+
+% CRAIG added acknowledgements here
+\small
+\textbf{Acknowledgements. }This work was partially supported by Canada's Natural Science and Engineering Research Council.
 
 \bibliographystyle{plainurl}
 \bibliography{bibliography}

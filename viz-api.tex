@@ -5,6 +5,47 @@ collect information and format it for the d3js visualization
 library. We also present two case studies showing potential uses of
 VizAPI.
 
+% CRAIG changed the order of the visualizations to: workflow, usage1, usage2
+
+\begin{figure*}[h]
+ \begin{center}
+\resizebox{0.7\textwidth}{!}{
+  \begin{tikzpicture}
+    \node[block] (client) {client};
+    \node[block,below=1cm of client] (library) {library};
+
+    \draw (library) -- node[left] (depends) {depends on} (client);
+
+    \node[above left=.75em of client] (ja) {\begin{minipage}{7em} modify \\to use Javassist \end{minipage}};
+    \draw[-Latex] (ja) -> (client);
+    \draw[-Latex] (ja) to [->,bend right=35] (library.west);
+
+    \node[block, above right=2em of client,xshift=-2em] (olib) {other library};
+    \draw (client) -- node[right,xshift=.1em] (also) {also depends on} (olib);
+
+    \node[oval,right=of depends] (test) {maven/gradle: run tests};
+
+    \draw[-Latex] (client) to [->,bend left=15] (test);
+
+    \node[block, right=10em of client] (output) {test output};
+    \node[block, right=10em of library] (raw) {raw API usage info};
+
+    \draw[-Latex] (test) to (output);
+    \draw[-Latex] (test) to (raw);
+
+    \node[oval, right=of raw] (Py) {Python scripts};
+    \draw[-Latex] (raw) to (Py);
+
+    \node[block, right=1em of Py] (viz) {D3 visualizations};
+    \draw[-Latex] (Py) to (viz);
+  \end{tikzpicture}
+}
+  \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D3 visualizations.}
+  \label{fig:workflow}
+ \end{center}
+\end{figure*}
+
+
 \begin{figure*}[h]
 \begin{center}
 \includegraphics[scale=1,width=15cm,height=8cm]{images/usage-scenario1.png}
@@ -44,43 +85,10 @@ Javassist to perform this
 instrumentation and then use the build system of each project (Maven or Gradle) to run its
 tests. 
 
-\begin{figure*}[h]
- \begin{center}
-\resizebox{0.7\textwidth}{!}{
-  \begin{tikzpicture}
-    \node[block] (client) {client};
-    \node[block,below=1cm of client] (library) {library};
 
-    \draw (library) -- node[left] (depends) {depends on} (client);
 
-    \node[above left=.75em of client] (ja) {\begin{minipage}{7em} modify \\to use Javassist \end{minipage}};
-    \draw[-Latex] (ja) -> (client);
-    \draw[-Latex] (ja) to [->,bend right=35] (library.west);
 
-    \node[block, above right=2em of client,xshift=-2em] (olib) {other library};
-    \draw (client) -- node[right,xshift=.1em] (also) {also depends on} (olib);
 
-    \node[oval,right=of depends] (test) {maven/gradle: run tests};
-
-    \draw[-Latex] (client) to [->,bend left=15] (test);
-
-    \node[block, right=10em of client] (output) {test output};
-    \node[block, right=10em of library] (raw) {raw API usage info};
-
-    \draw[-Latex] (test) to (output);
-    \draw[-Latex] (test) to (raw);
-
-    \node[oval, right=of raw] (Py) {Python scripts};
-    \draw[-Latex] (raw) to (Py);
-
-    \node[block, right=1em of Py] (viz) {D3 visualizations};
-    \draw[-Latex] (Py) to (viz);
-  \end{tikzpicture}
-}
-  \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D3 visualizations.}
-  \label{fig:workflow}
- \end{center}
-\end{figure*}
 \begin{figure*}[t]
 \begin{center}
 \includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
@@ -143,7 +151,7 @@ popular Maven repositories
 in different categories such as logging and json parsing.
 Our study included 10 libraries and
 selected clients of these libraries (potentially overlapping), for a total of 85 projects.
-We have made our data publicly available.\footnote{\url{https://www.dropbox.com/s/puopekyt9nbm8ip/apis-data.zip?dl=0}}
+We have made our data publicly available\footnote{\url{https://www.dropbox.com/s/puopekyt9nbm8ip/apis-data.zip?dl=0}}.
 
 We chose clients partly
 from popular Github repositories and partly from Duets.
