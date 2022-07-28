@@ -46,13 +46,6 @@ VizAPI.
 \end{figure*}
 
 
-\begin{figure*}[h]
-\begin{center}
-\includegraphics[scale=1,width=15cm,height=8cm]{images/usage-scenario1.png}
-\caption{Usage Scenario 1: Usage of the library, $jsoup$ by two clients, $ez-vcard$  and $JsoupXpath$}
-\label{fig:usagescenario1}
-\end{center}
-\end{figure*}
 
 \subsection{Design}
 \label{subsec:collecting-data}
@@ -87,13 +80,20 @@ tests.
 
 
 
-
-
-\begin{figure*}[t]
+\begin{figure*}[ht]
 \begin{center}
-\includegraphics[scale=1,width=9cm,height=8cm]{images/usage-scenario2.png}
-\caption{Usage Scenario 2: Interaction of the client, $dataprocessor$ with the library, $fastjson$}
-\label{fig:usagescenario2}
+
+\subfigure[Usage Scenario 1: Usage of the library, $jsoup$ by two clients, $ez-vcard$  and $JsoupXpath$
+\label{fig:usagescenario1}]
+{\includegraphics[scale=1,width=16cm,height=8cm]{images/usage-scenario1.png}}
+\hspace{7mm}
+
+\subfigure[Usage Scenario 2: Interaction of the client, $dataprocessor$ with the library, $fastjson$
+\label{fig:usagescenario2}]
+{\includegraphics[scale=1,width=11cm,height=5cm]{images/usage-scenario2.png}}
+
+\caption{\label{fig:usagescenarios} VizAPI Usage Scenarios}
+
 \end{center}
 \end{figure*}
 
@@ -167,7 +167,7 @@ We intend for these usage scenarios to show how VizAPI can be useful to client d
 Now, we walk through an example usage scenario of VizAPI.
 The graph in Figure~\ref{fig:usagescenario1} represents static and dynamic interactions of 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. The clients are JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
 
-We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. When we hover over them, the hover hints tell us the package names while double-clicking shows us direct interactions. We see that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
+We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. Hovering over a node tells us the package names while double-clicking shows us its direct interactions. We see that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
 
 Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. This could mean that breaking changes in these libraries can propagate to many of their own packages.
 
