@@ -16,7 +16,7 @@ VizAPI.
 
     \draw (library) -- node[left] (depends) {depends on} (client);
 
-    \node[above left=.75em of client] (ja) {\begin{minipage}{7em} modify \\to use Javassist \end{minipage}};
+    \node[above left=.75em of client] (ja) {\begin{minipage}{7em} modify \\with Javassist \end{minipage}};
     \draw[-Latex] (ja) -> (client);
     \draw[-Latex] (ja) to [->,bend right=35] (library.west);
 
@@ -40,7 +40,7 @@ VizAPI.
     \draw[-Latex] (Py) to (viz);
   \end{tikzpicture}
 }
-  \caption{Our instrumentation workflow. We modify existing project infrastructure to instrument clients and to run their test suites, producing raw data, which we process with our Python scripts to create D3 visualizations.}
+  \caption{VizAPI instrumentation workflow. Using Javassist, we analyze and instrument clients and run their test suites. We process the generated data with Python scripts to create D3 visualizations.}
   \label{fig:workflow}
  \end{center}
 \end{figure*}
@@ -83,16 +83,16 @@ tests.
 \begin{figure*}[ht]
 \begin{center}
 
-\subfigure[Usage Scenario 1: Usage of the library, $jsoup$ by two clients, $ez-vcard$  and $JsoupXpath$
+\subfigure[Usage Scenario 1: Library \textit{jsoup}, called by two clients, \textit{ez-vcard} and \textit{JsoupXpath}.
 \label{fig:usagescenario1}]
 {\includegraphics[scale=1,width=16cm,height=8cm]{images/usage-scenario1.png}}
 \hspace{7mm}
 
-\subfigure[Usage Scenario 2: Interaction of the client, $dataprocessor$ with the library, $fastjson$
+\subfigure[Usage Scenario 2: Client \textit{dataprocessor} calls library \textit{fastjson}.
 \label{fig:usagescenario2}]
 {\includegraphics[scale=1,width=11cm,height=5cm]{images/usage-scenario2.png}}
 
-\caption{\label{fig:usagescenarios} VizAPI Usage Scenarios}
+\caption{\label{fig:usagescenarios} VizAPI Usage Scenarios.}
 
 \end{center}
 \end{figure*}
