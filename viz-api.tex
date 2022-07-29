@@ -118,6 +118,8 @@ instantiations, and casts.
 Once we have generated data, we use a modified version
 of the d3graph\footnote{\url{https://pypi.org/project/d3graph/}} library in Python to generate a d3js\footnote{\url{https://d3js.org/}}
 visualization. 
+The graph in Figure~\ref{fig:usagescenario1}
+is an example of a graph produced by VizAPI.
 
 VizAPI graphs are force-directed graphs based on the
 frequency of interactions between different software components. 
@@ -126,23 +128,24 @@ Both libraries and dependencies refer to external libraries imported by componen
 We refer to components used by clients as libraries, and components used by libraries
 as dependencies. 
 
-The graph in Figure~\ref{fig:usagescenario1}
-is an example of a graph produced by VizAPI.
 Each node is a set of one or more packages that belong to the same JAR. 
-Clients are represented by nodes with white interiors; libraries by nodes with filled interiors and black borders;
+There are three categories of nodes: clients are represented by nodes with white interiors; libraries by nodes with filled interiors and black borders;
 and dependencies by nodes with filled interiors and normal borders.
 We coalesce nodes if they originate from the same 
-JAR file and have the same incoming and outgoing edges. Each edge is directed 
+JAR file and have the same incoming and outgoing edges.
+
+Each edge is directed
 from the source package(s) to the target package(s) and represents an interaction 
 (invocations, fields, annotations, subtyping) between packages. 
 The thickness of each edge reflects the frequency of interactions between the source and the target.
-We run a Python implementation of the Louvain clustering algorithm~\cite{blondel2008fast}.
-We colour nodes based on the cluster that they belong to. 
-This means that a colour could include nodes from the same or different JARs.
+Double-clicking on a node emphasizes its direct interactions with other packages while fading out the rest of the graph.
+
+We run a Python implementation of the Louvain clustering algorithm~\cite{blondel2008fast}, and make the clusters 
+visible by colouring nodes based on cluster.
+This means that the same colour could indicate nodes (of the same category) from the same or different JARs.
 Hovering on a node shows the list of packages and 
 the JAR that they belong to, 
 formatted as “jar : $\langle$space separated list of packages$\rangle$”. 
-Double-clicking on a node focusses on its direct interactions with other packages while fading out the rest of the graph.
 
 \subsection{Case Study}
 \label{subsec:evaluation}
@@ -167,15 +170,16 @@ our usage scenarios are publicly available.\footnote{\url{https://sruthivenkat.g
 We intend for these usage scenarios to show how VizAPI can be useful to client developers when they want to observe library API usage and for library developers when they want to observe how their library is used by clients.
 
 \paragraph{Usage Scenario 1: jsoup}
-Now, we walk through an example usage scenario of VizAPI.
-The graph in Figure~\ref{fig:usagescenario1} represents static and dynamic interactions of 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. Recall that nodes represent packages and edges represent interactions (usually invocations) between packages. The clients are JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
+Now, we walk through an example usage scenario of VizAPI. Imagine that we are a jsoup developer and want to understand
+how some clients interact with it, in anticipation of making some breaking changes. We choose clients JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
+Figure~\ref{fig:usagescenario1} shows static and dynamic interactions of the 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. Recall that nodes represent packages and edges represent interactions (usually invocations) between packages. 
 
 We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. Hovering over a node tells us the package names while double-clicking shows us its direct interactions. We see that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
 
-Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. This could mean that breaking changes in these libraries can propagate to many of their own packages.
+Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. As a jsoup developer, we wouuld be indifferent; others, however, can observe that breaking changes in jackson-core and jackson-databind could propagate.
 
 \paragraph{Usage Scenario 2: dataprocessor}
 
-Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}} (hollow with orange border). This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library (green fill). Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange-bordered client node (identity of the package available by hovering) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
+Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, say we are the developers of client dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}} (hollow with orange border). This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library (green fill). Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange-bordered client node (identity of the package available by hovering) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when we, as dataprocessor developers, need to upgrade the fastjson version, we only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
 
 Note also the disconnected nodes in Figure~\ref{fig:usagescenario2}. These are all packages of fastjson that are unused by dataprocessor: any breaking changes in these packages definitely do not directly affect dataprocessor, and are less likely to affect it overall than packages that are directly used.
