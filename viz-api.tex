@@ -83,15 +83,18 @@ tests.
 \begin{figure*}[ht]
 \begin{center}
 
-\subfigure[Usage Scenario 1: Library \textit{jsoup}, called by two clients, \textit{ez-vcard} and \textit{JsoupXpath}.
+\subfloat[Usage Scenario 1: Library \textit{jsoup} (pink with dark borders), called by two clients, \textit{ez-vcard} (hollow with purple border) and \textit{JsoupXpath} (hollow with pink border). Exploration shows that internal jsoup packages aren't called directly by clients.
 \label{fig:usagescenario1}]
-{\includegraphics[scale=1,width=16cm,height=8cm]{images/usage-scenario1.png}}
+{\includegraphics[scale=1,width=16cm]{images/usage-scenario1.png}}
 \hspace{7mm}
 
-\subfigure[Usage Scenario 2: Client \textit{dataprocessor} calls library \textit{fastjson}.
+\subfloat[Usage Scenario 2: Client \textit{dataprocessor} (hollow, orange border) calls only one package in library \textit{fastjson} (green fill).
 \label{fig:usagescenario2}]
-{\includegraphics[scale=1,width=11cm,height=5cm]{images/usage-scenario2.png}}
-
+{
+\makebox[16cm]{
+\includegraphics[scale=1,width=12cm]{images/usage-scenario2.png}
+}
+}
 \caption{\label{fig:usagescenarios} VizAPI Usage Scenarios.}
 
 \end{center}
@@ -173,6 +176,6 @@ Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usag
 
 \paragraph{Usage Scenario 2: dataprocessor}
 
-Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}}. This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library. Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange client node (identity of the package available from hovering on the orange node) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
+Figure~\ref{fig:usagescenario2} presents a second usage scenario. Here, we focus on a client, dataprocessor\footnote{\url{https://github.com/dadiyang/dataprocessor}\label{dataprocessor}} (hollow with orange border). This client uses the fastjson\footnote{\url{https://github.com/alibaba/fastjson}\label{fastjson}} library (green fill). Our visualization shows calls only from dataprocessor package \texttt{com.github.dataprocessor.slice}, which is the orange-bordered client node (identity of the package available by hovering) to the package \texttt{com.alibaba.fastjson}. No other parts of dataprocessor use fastjson. This means that when dataprocessor needs to upgrade its fastjson version, the dataprocessor developers only need to inspect the source code in the \texttt{com.github.dataprocessor.slice} package. 
 
 Note also the disconnected nodes in Figure~\ref{fig:usagescenario2}. These are all packages of fastjson that are unused by dataprocessor: any breaking changes in these packages definitely do not directly affect dataprocessor, and are less likely to affect it overall than packages that are directly used.
