@@ -1,13 +1,13 @@
 \label{sec:related-work}
 A representative tool from the software visualization literature is
-CodeSurveyor, by Hawes et al~\cite{hawes15:_codes}. This tool visualizes large
-codebases using cartographic maps as an analogy.  While it
+CodeSurveyor, by Hawes et al~\cite{hawes15:_codes}, which visualizes large
+codebases using the analogy of cartographic maps. While it
 incorporates dependency information into the layout of the map, VizAPI
 differs from CodeSurveyor in that VizAPI focusses on usage relationships
-between different modules---primarily API invocations---using test
+between different modules (e.g. API invocations) using test
 cases and static analysis to identify relationships between clients and libraries, rather
 than investigating a particular system, as CodeSurveyor does.  Earlier
-work in the same vein includes the software cartography project by Kuhn et
+work includes the software cartography project by Kuhn et
 al~\cite{kuhn10:_softw} and software terrain maps by DeLine~\cite{deline05:_stayin}.
 
 % could mention
@@ -29,7 +29,7 @@ Hejderup and Gousios~\cite{DBLP:journals/jss/HejderupG22} explore a
 question which is central to our approach---how well do client tests
 exercise their dependencies' libraries? That is, we rely on
 client test suites exercising enough of the dependencies to get valid
-results from our analyses. Their conclusion is that a combination of
+results from our analyses. They conclude that a combination of
 static and dynamic analysis of the client has some chance of detecting
 breaking changes in its dependencies, and we accordingly use static
 analysis to supplement our dynamic results.

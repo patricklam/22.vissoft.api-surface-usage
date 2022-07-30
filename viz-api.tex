@@ -49,11 +49,10 @@ VizAPI.
 
 \subsection{Design}
 \label{subsec:collecting-data}
-Our goal is to visualize interactions between different software components---between
+Our goal is to visualize interactions between software components---between
 clients and libraries, and between libraries and other libraries. We now explain
 how we collect static and dynamic information about software behaviour.
-Figure~\ref{fig:workflow} summarizes our instrumentation and
-data capture workflow. 
+Figure~\ref{fig:workflow} summarizes how VizAPI works.
 
 To identify interactions across the client/library boundaries,
 we first inspect JAR files of each software component to obtain a list of
@@ -121,15 +120,15 @@ visualization.
 The graph in Figure~\ref{fig:usagescenario1}
 is an example of a graph produced by VizAPI.
 
-VizAPI graphs are force-directed graphs based on the
-frequency of interactions between different software components. 
-Each software component can be one of: a client, a library or a dependency.
-
-Each node is a set of one or more packages that belong to the same JAR. 
-There are three categories of nodes: clients are represented by nodes with white interiors; libraries by nodes with filled interiors and black borders;
-and dependencies by nodes with filled interiors and normal borders.
-We coalesce nodes if they originate from the same 
-JAR file and have the same incoming and outgoing edges.
+VizAPI graphs are force-directed graphs based on the frequency of
+interactions between different software components.  Each node is a
+set of one or more packages that belong to the same JAR.  There are
+three categories of nodes: clients are represented by nodes with white
+interiors; libraries by nodes with filled interiors and black borders;
+and dependencies (called by libraries but not clients) by nodes with
+filled interiors and normal borders.  We coalesce nodes if they
+originate from the same JAR file and have the same incoming and
+outgoing edges.
 
 Each edge is directed
 from the source package(s) to the target package(s) and represents an interaction 
@@ -167,11 +166,11 @@ our usage scenarios are publicly available.\footnote{\url{https://sruthivenkat.g
 We intend for these usage scenarios to show how VizAPI can be useful to client developers when they want to observe library API usage and for library developers when they want to observe how their library is used by clients.
 
 \paragraph{Usage Scenario 1: jsoup}
-Now, we walk through an example usage scenario of VizAPI. Imagine that we are a jsoup developer and want to understand
+Imagine that we are a jsoup developer and want to understand
 how some clients interact with it, in anticipation of making some breaking changes. We choose clients JsoupXpath\footnote{\url{https://github.com/zhegexiaohuozi/JsoupXpath}\label{jsoupxpath}} and ez-vcard\footnote{\url{https://github.com/mangstadt/ez-vcard}\label{ez-vcard}}.
 Figure~\ref{fig:usagescenario1} shows static and dynamic interactions of the 2 clients with the jsoup\footnote{\url{https://github.com/jhy/jsoup}\label{jsoup}} library. Recall that nodes represent packages and edges represent interactions (usually invocations) between packages. 
 
-We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. Hovering over a node tells us the package names while double-clicking shows us its direct interactions. We see that the client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
+We can start our exploration with the cluster of pink nodes. Many of these nodes belong to either JsoupXpath or jsoup. Hovering over a node tells us the package names while double-clicking shows us its direct interactions. (To search for a package, we can click on ``show package names'' and use the browser's find functionality.) Here, client JsoupXpath calls directly into \texttt{org.jsoup.nodes} and \texttt{org.jsoup.select}. Notably, and as we might expect, we can see that \texttt{org.jsoup.helper} and \texttt{org.jsoup.internal} aren't called directly by JsoupXpath. This would mean that breaking changes in \texttt{org.jsoup.helper} or \texttt{org.jsoup.internal} wouldn't directly affect JsoupXpath\footnote{As a specific example, the retraction of an internal jsoup API would not break this client. Behavioural changes that are directly passed through to the external API, e.g. through delegation, can still break clients, but we can consider those to be changes in the external API.} 
 
 Similarly, ez-vcard, which belongs to the purple cluster in Figure~\ref{fig:usagescenario1}, directly calls into \texttt{org.jsoup}. ez-vcard also calls into jackson-core\footnote{\url{https://github.com/FasterXML/jackson-core}\label{jackson-core}} and jackson-databind\footnote{\url{https://github.com/FasterXML/jackson-databind}\label{jackson-databind}}, which are very tightly coupled amongst their own packages and with each other. As a jsoup developer, we wouuld be indifferent; others, however, can observe that breaking changes in jackson-core and jackson-databind could propagate.
 
