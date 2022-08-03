@@ -34,19 +34,15 @@ static and dynamic analysis of the client has some chance of detecting
 breaking changes in its dependencies, and we accordingly use static
 analysis to supplement our dynamic results.
 
-Thummalapenta and Xie~\cite{thummalapenta08:_spotw} presented the
-related SpotWeb tool, which identifies framework hotspots (APIs that
-are often used) and coldspots (APIs that are never used); they do not
-consider framework APIs that are used but not intended to be. Hotspots
-and coldspots are, however, related to our investigations about client
-use of APIs; part of our study could be seen as investigating the
-prevalence of hotspots on our benchmark suite. Their notion of API
-usage is similar to ours, but they perform a static search to identify
-uses, while we additionally dynamically observe test executions. They
-also identify the top $N$ percent of used APIs as hotspots, and unused
-APIs as
-coldspots. Viljamaa~\cite{viljamaa03:_rever_engin_framew_reuse_inter}
-also aimed to find hotspots but used concept analysis to do so.
+%% Thummalapenta and Xie~\cite{thummalapenta08:_spotw} presented
+%% SpotWeb, which identifies framework hotspots (often-used APIs) and coldspots (never-used APIs).
+%% Their notion of API
+%% usage is similar to ours, but they perform a static search to identify
+%% uses, while we additionally dynamically observe test executions. They
+%% also identify the top $N$ percent of used APIs as hotspots, and unused
+%% APIs as
+%% coldspots. Viljamaa~\cite{viljamaa03:_rever_engin_framew_reuse_inter}
+%% also identified hotspots, via concept analysis.
 
 Call graph visualization is, of course, a well-known technique, as seen e.g. by the Reacher tool~\cite{latoza11:_visual_call_graph}. 
 VizAPI also presents static and dynamic call information. However, we designed
@@ -59,9 +55,8 @@ about unsafe upgrades, knowledge that some upgrades are safe, and
 having reduced attack surfaces. Library upgrades have been
 investigated by many researchers, including Lam et
 al~\cite{lam20:_puttin_seman_seman_version} and Kula et al~\cite{kula18:_do_devel_updat_their_librar_depen}. Kula et al found that most
-software had outdated dependencies, and that software developers had
-negative feelings about being required to constantly upgrade their
-libraries. In other work, Kula et al~\cite{kula14:_visual_evolut_system_their_librar_depen} developed a tool
+software had outdated dependencies, and that software developers disliked being required to constantly upgrade their
+libraries. Kula et al~\cite{kula14:_visual_evolut_system_their_librar_depen} also developed a tool
 to visualize changes in dependencies over time---but not how a particular client depends on its libraries. 
 Our VizAPI tool's dependency visualizations will help developers
 prioritize required upgrades as low-effort or high-effort.
@@ -71,7 +66,7 @@ only certify safety for 10\% of upgrades; our combined static and
 dynamic approach presents the developer with more information and
 enables more upgrades. 
 
-Bergel et al~\cite{bergel14:_domain_specif_languag_visual_softw_depen_graph} propose the {\sc Graph} domain-specific language
-for creating software visualizations. That language could generate static representations similar to VizAPI's; however,
-in our work, we choose a specific point in the design space and argue that it is useful for helping developers understand
+Bergel et al~\cite{bergel14:_domain_specif_languag_visual_softw_depen_graph} propose the {\sc Graph} DSL
+for software visualizations. That language could generate static representations similar to VizAPI's; however,
+VizAPI chooses a specific point in the design space, which we argue is useful for helping developers understand
 potential impacts of upgrades.

@@ -1,11 +1,8 @@
 \label{sec:viz-api}
 
-We next describe the design of VizAPI, including details on how we
+We next describe the design of VizAPI, including how we
 collect information and format it for the d3js visualization
-library. We also present two case studies showing potential uses of
-VizAPI.
-
-% CRAIG changed the order of the visualizations to: workflow, usage1, usage2
+library. We also present two VizAPI usage scenarios.
 
 \begin{figure*}[h]
  \begin{center}
@@ -49,9 +46,10 @@ VizAPI.
 
 \subsection{Design}
 \label{subsec:collecting-data}
-Our goal is to visualize interactions between software components---between
-clients and libraries, and between libraries and other libraries. We now explain
-how we collect static and dynamic information about software behaviour.
+Our goal is to visualize software component interactions---between
+clients and libraries, and between libraries and other libraries. 
+%We now explain
+%how we collect static and dynamic information about software behaviour.
 Figure~\ref{fig:workflow} summarizes how VizAPI works.
 
 To identify interactions across the client/library boundaries,
@@ -91,7 +89,7 @@ tests.
 \label{fig:usagescenario2}]
 {
 \makebox[16cm]{
-\includegraphics[width=10cm]{images/usage-scenario2.pdf}
+\includegraphics[width=11cm]{images/usage-scenario2.pdf}
 }
 }
 \caption{\label{fig:usagescenarios} VizAPI Usage Scenarios.}
@@ -127,7 +125,7 @@ three categories of nodes: clients are represented by nodes with white
 interiors; libraries by nodes with filled interiors and black borders;
 and dependencies (called by libraries but not clients) by nodes with
 filled interiors and normal borders.  We coalesce nodes if they
-originate from the same JAR file and have the same incoming and
+originate from the same JAR and have the same incoming and
 outgoing edges.
 
 Each edge is directed
