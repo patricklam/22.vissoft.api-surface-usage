@@ -14,7 +14,7 @@ all possible static calls---possibly too many.
 That is, the main hazard with static analysis is that our visualization may include more
 static edges than are actually possible. Some of those edges could be ruled out by a more
 precise call graph. Reflection aside, no static edges
-are missing (our approach is ``soundy~\cite{livshits15:_in_defen_sound}'' with respect to static information). On the other hand, dynamic edges have actually been observed
+are missing (our approach is ``soundy''~\cite{livshits15:_in_defen_sound} with respect to static information). On the other hand, dynamic edges have actually been observed
 on some execution; better tests could yield more dynamic edges. But even if
 a dynamic edge is missing, there will be a static edge if the behaviour is possible.
 

@@ -27,9 +27,9 @@ al~\cite{kuhn10:_softw} and software terrain maps by DeLine~\cite{deline05:_stay
 
 Hejderup and Gousios~\cite{DBLP:journals/jss/HejderupG22} explore a
 question which is central to our approach---how well do client tests
-exercise their dependencies' libraries? That is, we rely on
+exercise their dependencies' libraries? The dynamic part of our approach relies on
 client test suites exercising enough of the dependencies to get valid
-results from our analyses. They conclude that a combination of
+dynamic results from our analyses. They conclude that a combination of
 static and dynamic analysis of the client has some chance of detecting
 breaking changes in its dependencies, and we accordingly use static
 analysis to supplement our dynamic results.
@@ -68,5 +68,5 @@ enables more upgrades.
 
 Bergel et al~\cite{bergel14:_domain_specif_languag_visual_softw_depen_graph} propose the {\sc Graph} DSL
 for software visualizations. That language could generate static representations similar to VizAPI's; however,
-VizAPI chooses a specific point in the design space, which we argue is useful for helping developers understand
+VizAPI chooses a specific point in the design space, and we argue that this point is useful for helping developers understand
 potential impacts of upgrades.
